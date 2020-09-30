@@ -1,8 +1,9 @@
 #!/bin/bash
 
+# Example Comment
+
 source "$HOME/.jlib/lib/jlib.sh"
 token="$(get_opt "ipinfo")"
-
 domain="$1"
 
 curl -s "https://ipinfo.io/ranges/$domain?token=$token" | jq -r '.ranges[]'
