@@ -1,0 +1,14 @@
+#!/bin/bash
+
+source "$HOME/.jlib/lib/jlib.sh"
+token="$(get_opt "ipinfo")"
+
+echo "Subdomain,IP,City,State,Country,Organization,Netblock Owner,Netblock,Link Type"
+
+while read line
+do 
+    ip=$(echo $line| cut -d " " -f 2)
+    name=$(echo $line | cut -d " " -f 1)
+    echo -n "$name,"
+    curl -s "https://ipinfo.io/$ip?token=$token" | jq -r '[.ip,.city,.region,.country,.company.name,.asn.name,.asn.route,.asn.type] | @csv'
+done 

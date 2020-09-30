@@ -1,0 +1,3 @@
+#!/bin/bash
+
+while read range; do prips $range; done

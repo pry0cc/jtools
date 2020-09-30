@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source "$HOME/.jlib/lib/jlib.sh"
+token="$(get_opt "ipinfo")"
+
+sed 's/$/\/hostname/' | parallel --jobs=12 --pipe -N1000 "curl -s -XPOST -H 'Content-Type: text/plain' --data-binary @- 'ipinfo.io/batch?token=$token&filter=1'" | jq -r '.[]'
